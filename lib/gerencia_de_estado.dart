@@ -1,17 +1,21 @@
 class GerenciaDeEstado {
   var _state;
-  var _onUpdate;
+  var _listens = <Function>[];
 
   get state => _state;
 
   void setState(var state) {
     _state = state;
-    if (_onUpdate != null) {
-      _onUpdate(state);
+    _update();
+  }
+
+  void _update() {
+    for (var i = 0; i < _listens.length; i++) {
+      _listens[i](_state);
     }
   }
 
   void listen(void Function(dynamic state) onUpdate) {
-    _onUpdate = onUpdate;
+    _listens.add(onUpdate);
   }
 }

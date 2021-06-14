@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter_test/flutter_test.dart';
 import 'package:gerencia_de_estado/gerencia_de_estado.dart';
 
@@ -16,6 +14,9 @@ void main() {
       expect(controller.state, "alterado");
     });
     controller.setState("alterado");
-    expect(controller.state, "alterado");
+    controller.listen((state) {
+      expect(controller.state, "alterado2");
+    });
+    controller.setState("alterado2");
   });
 }
