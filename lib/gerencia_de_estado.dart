@@ -1,10 +1,13 @@
-class GerenciaDeEstado {
-  var _state;
-  var _listens = <Function>[];
+class GerenciaDeEstado<T> {
+  late T _state;
+  var _listens = <Function(T state)>[];
+  GerenciaDeEstado({required T initialState}) {
+    this._state = initialState;
+  }
 
   get state => _state;
 
-  void setState(var state) {
+  void setState(T state) {
     _state = state;
     _update();
   }
@@ -15,7 +18,7 @@ class GerenciaDeEstado {
     }
   }
 
-  void listen(void Function(dynamic state) onUpdate) {
+  void listen(void Function(T state) onUpdate) {
     _listens.add(onUpdate);
   }
 }
